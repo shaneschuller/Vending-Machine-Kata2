@@ -3,7 +3,8 @@ package com.github.shaneschuller;
 /**
  * Created by Shane on 7/24/2015.
  */
-public enum Coin {
+public enum Coin
+{
         PENNY(0.01),
         NICKEL(0.05),
         DIME(0.1),

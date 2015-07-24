@@ -1,5 +1,6 @@
 import com.github.shaneschuller.VendingMachine;
 import com.github.shaneschuller.Coin;
+import com.github.shaneschuller.Selection;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,6 +63,17 @@ public class VendingMachineKataTestMain
     {
         VendingMachine.insertCoin(Coin.PENNY);
         Assert.assertEquals("INSERT COIN", VendingMachine.display());
-        Assert.assertEquals(""+balance, VendingMachine.getBalance());
+        Assert.assertEquals("" + balance, VendingMachine.getBalance());
+    }
+
+    @Test
+    public void canPurchaseCola()
+    {
+        VendingMachine.insertCoin(Coin.QUARTER);
+        VendingMachine.insertCoin(Coin.QUARTER);
+        VendingMachine.insertCoin(Coin.QUARTER);
+        VendingMachine.insertCoin(Coin.QUARTER);
+
+        Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.COLA));
     }
 }

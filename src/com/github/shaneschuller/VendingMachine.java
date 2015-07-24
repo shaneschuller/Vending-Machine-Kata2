@@ -9,9 +9,20 @@ import java.util.HashMap;
 public class VendingMachine {
     private static final String INSERT_COIN = "INSERT COIN";
     private static final String NUMBER_FORMAT_SAFE_DEFAULT_STRING = "0";
+    private static final String SUCCESSFUL_PURCHASE = "THANK YOU";
+    private static final String UNSUCCESSFUL_PURCHASE = "PRICE";
     private static String display = INSERT_COIN;
-    private static HashMap<Coin, Integer> balance;
-
+    private static HashMap<Coin, Integer> balance = new HashMap<Coin, Integer>();
+    private static HashMap<Coin, Integer> amount = new HashMap<Coin, Integer>();
+    static
+    {
+        amount.put(Coin.NICKEL, 0);
+        amount.put(Coin.QUARTER, 0);
+        amount.put(Coin.DIME, 0);
+        balance.put(Coin.NICKEL, 0);
+        balance.put(Coin.QUARTER, 0);
+        balance.put(Coin.DIME, 0);
+    }
     public static String display()
     {
         return display;
@@ -27,6 +38,7 @@ public class VendingMachine {
                 {
                     display = NUMBER_FORMAT_SAFE_DEFAULT_STRING;
                 }
+                amount.put(coin, (amount.get(coin) + 1));
                 display = "" + (Double.parseDouble(display) + coin.value());
             }
         } catch (NumberFormatException nfe)
@@ -42,15 +54,45 @@ public class VendingMachine {
 
     public static String getBalance()
     {
-        double balanceInNumeric = 0.0;
-        balanceInNumeric += balance.get(Coin.QUARTER) * Coin.QUARTER.value();
-        balanceInNumeric += balance.get(Coin.DIME) * Coin.DIME.value();
-        balanceInNumeric += balance.get(Coin.NICKEL) * Coin.NICKEL.value();
-        return ""+balanceInNumeric;
+        return ""   +(   (balance.get(Coin.QUARTER) * Coin.QUARTER.value())
+                    +   (balance.get(Coin.DIME) * Coin.DIME.value())
+                    +   (balance.get(Coin.NICKEL) * Coin.NICKEL.value())
+                     );
     }
 
     public static void setBalance(HashMap<Coin, Integer> bal)
     {
         balance = bal;
+    }
+
+    public static String purchase(Selection purchase)
+    {
+        if(getAmountValue() >= purchase.value())
+        {
+            addAmountToBalance();
+            return SUCCESSFUL_PURCHASE;
+        }
+        else
+        {
+            return UNSUCCESSFUL_PURCHASE;
+        }
+    }
+
+    private static void addAmountToBalance()
+    {
+        balance.put(Coin.QUARTER, (balance.get(Coin.QUARTER) + amount.get(Coin.QUARTER)));
+        amount.put(Coin.QUARTER, 0);
+        balance.put(Coin.DIME, (balance.get(Coin.DIME) + amount.get(Coin.DIME)));
+        amount.put(Coin.DIME, 0);
+        balance.put(Coin.NICKEL, (balance.get(Coin.NICKEL) + amount.get(Coin.NICKEL)));
+        amount.put(Coin.NICKEL, 0);
+    }
+
+    private static double getAmountValue()
+    {
+        return  (amount.get(Coin.QUARTER) * Coin.QUARTER.value())
+                +   (amount.get(Coin.DIME) * Coin.DIME.value())
+                +   (amount.get(Coin.NICKEL) * Coin.NICKEL.value());
+
     }
 }
