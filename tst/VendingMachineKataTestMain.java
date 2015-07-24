@@ -24,4 +24,12 @@ public class VendingMachineKataTestMain
         Assert.assertEquals("0.05", VendingMachine.display());
         VendingMachine.returnMoney();
     }
+
+    @Test
+    public void acceptsDimes()
+    {
+        VendingMachine.insertCoin(Coin.DIME);
+        Assert.assertEquals("0.1", VendingMachine.display());
+        VendingMachine.returnMoney();
+    }
 }
