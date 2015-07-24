@@ -1,5 +1,4 @@
 package com.github.shaneschuller;
-import com.github.shaneschuller.Coin;
 
 import java.util.HashMap;
 
@@ -11,9 +10,12 @@ public class VendingMachine {
     private static final String NUMBER_FORMAT_SAFE_DEFAULT_STRING = "0";
     private static final String SUCCESSFUL_PURCHASE = "THANK YOU";
     private static final String UNSUCCESSFUL_PURCHASE = "PRICE";
+    private static final String SOLD_OUT = "SOLD OUT" ;
     private static String display = INSERT_COIN;
     private static HashMap<Coin, Integer> balance = new HashMap<Coin, Integer>();
     private static HashMap<Coin, Integer> amount = new HashMap<Coin, Integer>();
+    private static HashMap<Selection, Integer> supply = new HashMap<>();
+
     static
     {
         amount.put(Coin.NICKEL, 0);
@@ -22,6 +24,9 @@ public class VendingMachine {
         balance.put(Coin.NICKEL, 0);
         balance.put(Coin.QUARTER, 0);
         balance.put(Coin.DIME, 0);
+        supply.put(Selection.COLA, 0);
+        supply.put(Selection.CANDY, 0);
+        supply.put(Selection.CHIPS, 0);
     }
     public static String display()
     {
@@ -67,13 +72,15 @@ public class VendingMachine {
 
     public static String purchase(Selection purchase)
     {
-        if(getAmountValue() >= purchase.value())
+        if(getAmountValue() >= purchase.value() && supply.get(purchase) != 0)
         {
             addAmountToBalance();
             return SUCCESSFUL_PURCHASE;
         }
         else
         {
+            if(supply.get(purchase) == 0)
+                return SOLD_OUT;
             return UNSUCCESSFUL_PURCHASE;
         }
     }
@@ -94,5 +101,13 @@ public class VendingMachine {
                 +   (amount.get(Coin.DIME) * Coin.DIME.value())
                 +   (amount.get(Coin.NICKEL) * Coin.NICKEL.value());
 
+    }
+
+    public static void updateSupply(HashMap<Selection, Integer> updateSupply)
+    {
+        if(updateSupply != null)
+        {
+            supply.putAll(updateSupply);
+        }
     }
 }

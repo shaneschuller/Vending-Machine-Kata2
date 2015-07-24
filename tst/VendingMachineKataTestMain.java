@@ -94,4 +94,20 @@ public class VendingMachineKataTestMain
 
         Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.CHIPS));
     }
+
+    public VendingMachineKataTestMain() {
+        super();
+    }
+
+    @Test
+    public void alertOfSoldOutCandy()
+    {
+        HashMap<Selection,Integer> completeSupply = new HashMap<>();
+        completeSupply.put(Selection.CANDY, 0);
+        completeSupply.put(Selection.CHIPS, 10);
+        completeSupply.put(Selection.COLA, 10);
+        VendingMachine.updateSupply(completeSupply);
+
+        Assert.assertEquals("SOLD OUT", VendingMachine.purchase(Selection.CANDY));
+    }
 }
