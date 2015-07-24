@@ -54,6 +54,9 @@ public class VendingMachine {
 
     public static void returnMoney()
     {
+        amount.put(Coin.QUARTER, 0);
+        amount.put(Coin.DIME, 0);
+        amount.put(Coin.NICKEL, 0);
         display = INSERT_COIN;
     }
 

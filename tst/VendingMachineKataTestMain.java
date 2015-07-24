@@ -15,6 +15,7 @@ import java.util.HashMap;
 public class VendingMachineKataTestMain
 {
     private double balance;
+    private HashMap<Selection,Integer> completeSupply;
     @Before
     public void setBalanceOfVendingMachine()
     {
@@ -26,12 +27,19 @@ public class VendingMachineKataTestMain
         initBalance.put(Coin.NICKEL, 60);
         balance += Coin.NICKEL.value() * 60;
         VendingMachine.setBalance(initBalance);
+
+        completeSupply = new HashMap<Selection,Integer>();
+        completeSupply.put(Selection.CANDY, 10);
+        completeSupply.put(Selection.CHIPS, 10);
+        completeSupply.put(Selection.COLA, 10);
+        VendingMachine.updateSupply(completeSupply);
     }
 
     @After
     public void setTestingBalanceToZero()
     {
         balance = 0.0;
+        completeSupply = null;
     }
 
     @Test
@@ -73,8 +81,9 @@ public class VendingMachineKataTestMain
         VendingMachine.insertCoin(Coin.QUARTER);
         VendingMachine.insertCoin(Coin.QUARTER);
         VendingMachine.insertCoin(Coin.QUARTER);
-
+        Assert.assertEquals("1.0", VendingMachine.display());
         Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.COLA));
+        VendingMachine.returnMoney();
     }
 
     @Test
@@ -82,32 +91,57 @@ public class VendingMachineKataTestMain
     {
         VendingMachine.insertCoin(Coin.QUARTER);
         VendingMachine.insertCoin(Coin.QUARTER);
-
+        Assert.assertEquals("0.5", VendingMachine.display());
         Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.CHIPS));
+        VendingMachine.returnMoney();
     }
 
     @Test
     public void canPurchaseCandy()
     {
+
+        VendingMachine.insertCoin(Coin.QUARTER);
         VendingMachine.insertCoin(Coin.QUARTER);
         VendingMachine.insertCoin(Coin.DIME);
-
-        Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.CHIPS));
+        VendingMachine.insertCoin(Coin.NICKEL);
+        Assert.assertEquals("0.65", VendingMachine.display());
+        Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.CANDY));
+        VendingMachine.returnMoney();
     }
 
-    public VendingMachineKataTestMain() {
-        super();
-    }
+
 
     @Test
     public void alertOfSoldOutCandy()
     {
-        HashMap<Selection,Integer> completeSupply = new HashMap<>();
         completeSupply.put(Selection.CANDY, 0);
-        completeSupply.put(Selection.CHIPS, 10);
-        completeSupply.put(Selection.COLA, 10);
         VendingMachine.updateSupply(completeSupply);
 
         Assert.assertEquals("SOLD OUT", VendingMachine.purchase(Selection.CANDY));
     }
+
+    @Test
+    public void alertOfSoldOutChips()
+    {
+        completeSupply.put(Selection.CHIPS, 0);
+        VendingMachine.updateSupply(completeSupply);
+
+        Assert.assertEquals("SOLD OUT", VendingMachine.purchase(Selection.CHIPS));
+    }
+
+    @Test
+    public void alertOfSoldOutCola()
+    {
+        completeSupply.put(Selection.COLA, 0);
+        VendingMachine.updateSupply(completeSupply);
+
+        Assert.assertEquals("SOLD OUT", VendingMachine.purchase(Selection.COLA));
+    }
+
+    /* CONSTRUCTOR */
+    public VendingMachineKataTestMain()
+    {
+        super();
+    }
+
 }
