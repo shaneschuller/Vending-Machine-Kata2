@@ -89,11 +89,9 @@ public class VendingMachineKataTestMain
     @Test
     public void canPurchaseCandy()
     {
-        {
-            VendingMachine.insertCoin(Coin.QUARTER);
-            VendingMachine.insertCoin(Coin.DIME);
+        VendingMachine.insertCoin(Coin.QUARTER);
+        VendingMachine.insertCoin(Coin.DIME);
 
-            Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.CHIPS));
-        }
+        Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.CHIPS));
     }
 }
