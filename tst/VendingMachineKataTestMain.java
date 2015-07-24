@@ -13,6 +13,15 @@ public class VendingMachineKataTestMain
     public void acceptsQuarters()
     {
         VendingMachine.insertCoin(Coin.QUARTER);
-        Assert.assertEquals("0.25",VendingMachine.display());
+        Assert.assertEquals("0.25", VendingMachine.display());
+        VendingMachine.returnMoney();
+    }
+
+    @Test
+    public void acceptsNickles()
+    {
+        VendingMachine.insertCoin(Coin.NICKEL);
+        Assert.assertEquals("0.05", VendingMachine.display());
+        VendingMachine.returnMoney();
     }
 }
