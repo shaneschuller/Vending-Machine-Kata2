@@ -40,6 +40,7 @@ public class VendingMachineKataTestMain
     {
         balance = 0.0;
         completeSupply = null;
+        VendingMachine.returnMoney();
     }
 
     @Test
@@ -47,7 +48,6 @@ public class VendingMachineKataTestMain
     {
         VendingMachine.insertCoin(Coin.QUARTER);
         Assert.assertEquals("0.25", VendingMachine.display());
-        VendingMachine.returnMoney();
     }
 
     @Test
@@ -55,7 +55,6 @@ public class VendingMachineKataTestMain
     {
         VendingMachine.insertCoin(Coin.NICKEL);
         Assert.assertEquals("0.05", VendingMachine.display());
-        VendingMachine.returnMoney();
     }
 
     @Test
@@ -63,7 +62,6 @@ public class VendingMachineKataTestMain
     {
         VendingMachine.insertCoin(Coin.DIME);
         Assert.assertEquals("0.1", VendingMachine.display());
-        VendingMachine.returnMoney();
     }
 
     @Test
@@ -83,7 +81,6 @@ public class VendingMachineKataTestMain
         VendingMachine.insertCoin(Coin.QUARTER);
         Assert.assertEquals("1.0", VendingMachine.display());
         Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.COLA));
-        VendingMachine.returnMoney();
     }
 
     @Test
@@ -93,7 +90,6 @@ public class VendingMachineKataTestMain
         VendingMachine.insertCoin(Coin.QUARTER);
         Assert.assertEquals("0.5", VendingMachine.display());
         Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.CHIPS));
-        VendingMachine.returnMoney();
     }
 
     @Test
@@ -106,7 +102,7 @@ public class VendingMachineKataTestMain
         VendingMachine.insertCoin(Coin.NICKEL);
         Assert.assertEquals("0.65", VendingMachine.display());
         Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.CANDY));
-        VendingMachine.returnMoney();
+
     }
 
 
