@@ -76,4 +76,13 @@ public class VendingMachineKataTestMain
 
         Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.COLA));
     }
+
+    @Test
+    public void canPurchaseChips()
+    {
+        VendingMachine.insertCoin(Coin.QUARTER);
+        VendingMachine.insertCoin(Coin.QUARTER);
+
+        Assert.assertEquals("THANK YOU", VendingMachine.purchase(Selection.CHIPS));
+    }
 }
