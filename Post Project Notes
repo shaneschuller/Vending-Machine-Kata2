@@ -1,0 +1,21 @@
+This project is relatively simple. I tried to not overengineer in most aspects. Though i feel the HashMaps for balance
+and amount and selection might have been a touch overkill. The way i conceptualized the problem was these buckets. I
+could have just made "int quarters" and stored it like so, and would have made life a touch easier. But going with a
+HashMap means I can scale up, add infinite number of items (Currency, or Selection) and my main code doesnt change except
+to add them to the static block (to avoid pesky null pointers) and to the enums ofcourse.
+
+My test cases are pulled from the business requirements (README.md). I chose to use enums because that was suggested.
+I wanted to make sure my test read less like code and more like an english paper, so i attempted to abstract out much of
+the logic to setup and tear down tests.
+
+The hardest part about this whole venture was the HashMaps. Wasn't until I got to the final 2 test cases that i realized
+that i "painted myself into a corner" with these HashMaps. Instead of converting the types and doing a major refactor
+I just implemented the semi-complicated logic into the makeChange function.
+
+As for the requirements of this Kata, I have written a Vending Machine using Test Driven Development (view the logs). I
+attempted to ease into the Test Driven Development in the first few commits, not trying to make too many assumptions or
+design the application before i wrote the tests for it. You'll notice however after I had sleep and all day at work to
+think about the project my mind wandered and I had a million ideas. I will try to come back and refactor this and make
+it cleaner probably using Interfaces now that i have a working base to work from.
+
+From a TDD standpoint I think this project  is a success, I have over 90% code line coverage, and 100% method coverage.

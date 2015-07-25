@@ -12,6 +12,7 @@ public class VendingMachine {
     private static final String UNSUCCESSFUL_PURCHASE = "PRICE";
     private static final String SOLD_OUT = "SOLD OUT" ;
     private static final String ZERO_AMOUNT = "0.00";
+    private static final String EXACT_CHANGE_ONLY = "EXACT CHANGE ONLY";
     private static String display = INSERT_COIN;
     private static HashMap<Coin, Integer> balance = new HashMap<>();
     private static HashMap<Coin, Integer> amount = new HashMap<>();
@@ -32,6 +33,8 @@ public class VendingMachine {
     }
     public static String display()
     {
+        if(Double.parseDouble(getBalance()) < 1.0)
+            return EXACT_CHANGE_ONLY;
         return display;
     }
 

@@ -141,6 +141,18 @@ public class VendingMachineKataTestMain
         Assert.assertEquals("0.00", VendingMachine.returnMoney());
     }
 
+    @Test
+    public void exactChangeIsDisplayed()
+    {
+        HashMap<Coin, Integer> initBalance = new HashMap<>();
+        initBalance.put(Coin.QUARTER, 0);
+        initBalance.put(Coin.DIME, 0);
+        initBalance.put(Coin.NICKEL, 0);
+        VendingMachine.setBalance(initBalance);
+        Assert.assertEquals("EXACT CHANGE ONLY", VendingMachine.display());
+
+    }
+
     /* CONSTRUCTOR */
     public VendingMachineKataTestMain()
     {
